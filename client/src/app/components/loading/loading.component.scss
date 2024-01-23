@@ -1,0 +1,13 @@
+:host {
+    position: relative;
+    & > section {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url(../../../assets/tools/loading.gif);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}

@@ -1,0 +1,14 @@
+<section>
+    <section class="logo" [class.big]="state == 'HOME'">
+        <div class="img"></div>
+        <div *ngIf="state == 'HOME'">
+            <app-avatar *ngFor="let king of army; let i = index" [crown]="king" [color]="i" (click)="i == 1 && runSecret()"></app-avatar>
+        </div>
+    </section>
+    <ng-container [ngSwitch]="state">
+        <app-loading *ngSwitchCase="'LOADING'"></app-loading>
+        <app-room *ngSwitchCase="'ROOM'"></app-room>
+        <app-game *ngSwitchCase="'GAME'"></app-game>
+        <app-home *ngSwitchDefault></app-home>
+    </ng-container>
+</section>

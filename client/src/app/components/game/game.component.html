@@ -1,0 +1,82 @@
+<section>
+    <section class="header">
+        <div class="timer">
+            <span>{{ time }}</span>
+        </div>
+        <div class="round">
+            <span>Round {{ round }} of {{ maxRounds }}</span>
+        </div>
+        <div class="word">
+            <span>{{ drawer.user.uid == myUid || passers.includes(':' +  myUid + ':') ? secret : word }}</span>
+        </div>
+    </section>
+    <section class="board">
+        <!-- list of players -->
+        <ng-container *ngFor="let player of players; let i = index">
+            <div [attr.data-state]="drawer.user.uid == player.user.uid ? 'drawing' : passers.includes(':' +  player.user.uid + ':') ? 'correct' : ''" [class.isMe]="player.user.uid == myUid">
+                <div>#{{ i+1 }}</div>
+                <div>
+                    <div>{{ player.user.name }}</div>
+                    <div>Points: {{ player.points }}</div>
+                </div>
+                <app-avatar
+                    [color]="player.user.avatar.color"
+                    [eyes]="player.user.avatar.eyes"
+                    [mouth]="player.user.avatar.mouth">
+                </app-avatar>
+            </div>
+        </ng-container>
+    </section>
+    <section class="sandbox">
+        <div class="box">
+            <canvas #drawerCanvas 
+                [style.display]="drawer.user.uid === myUid ? 'block' : 'none'" 
+                width="{{ canvasWidth }}" 
+                height="{{ canvasHeight }}">Canvas not supported by your Browser!</canvas>
+            <canvas #outputCanvas 
+                [style.display]="drawer.user.uid !== myUid ? 'block' : 'none'" 
+                width="{{ canvasWidth }}" 
+                height="{{ canvasHeight }}">Canvas not supported by your Browser!</canvas>
+            <div class="options" *ngIf="drawer.user.uid === myUid && !word" class="overlay">
+                <h1>Please choose a word.</h1>
+                <div>
+                    <ng-container *ngFor="let option of options; let i = index">
+                        <span (click)="selectWord(i)">{{ option }}</span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="announcement" *ngIf="drawer.user.uid !== myUid && announcement.length > 0" class="overlay">
+                <h1>{{ announcement }}</h1>
+            </div>
+        </div>
+    </section>
+    <section class="chat">
+        <div #chatbox class="box">
+            <!-- list of messages -->   
+            <ng-container *ngFor="let message of messages">
+                <div [attr.data-type]="message.type" 
+                    *ngIf="message.canSee.includes(':' + myUid +':')">
+                    <span *ngIf="message.from != 'server'">{{ message.from }}:</span><span>{{ message.data }}</span>
+                </div>
+            </ng-container>
+        </div>
+        <input #msgInput type="text" name="message" maxlength="100" placeholder="Type your guess here..." (keydown.enter)="submitMessage(msgInput)">
+    </section>
+    <section class="art" *ngIf="drawer.user.uid === myUid">
+        <div class="color-out" [style.background]="drawerColor$ | async"></div>
+        <div class="pallete">
+            <ng-container *ngFor="let color of pallete">
+                <div [style.background]="color" (click)="setColor(color)"></div>
+            </ng-container>
+        </div>
+        <div class="trash" (click)="clear()"></div>
+        <div class="eraser" (click)="setColor('#fff')"></div>
+        <div class="widths">
+            <ng-container *ngFor="let width of widths">
+                <div (click)="setWidth(width)">
+                    <div [style.width.px]="width" [style.height.px]="width"></div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</section>

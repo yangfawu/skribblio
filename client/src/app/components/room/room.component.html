@@ -1,0 +1,64 @@
+<section>
+    <section class="settings">
+        <h1>Settings</h1>
+        <div>
+            <h1>Lobby</h1>
+            <form action="javascript:void(0)">
+                <div>
+                    <h2>Rounds</h2>
+                    <select #roundEle name="rounds" [disabled]="owner.uid != myUid" value="{{ round }}" (change)="updateSettings(roundEle, timeEle)">
+                        <ng-container *ngFor="let e of [].constructor(9); let i = index">
+                            <option value="{{i + 2}}">{{i + 2}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div>
+                    <h2>Draw time in seconds</h2>
+                    <select #timeEle name="draw" [disabled]="owner.uid != myUid" value="{{ time }}" (change)="updateSettings(roundEle, timeEle)">
+                        <ng-container *ngFor="let e of [].constructor(16); let i = index">
+                            <option value="{{(i + 3)*10}}">{{(i + 3)*10}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div>
+                    <h2>Custom Words</h2>
+                    <p>The current custom words feature is not very UI-friendly and since this is a replica, this feature will not be added. However, it will be added in the future with a better UI design that deviates a bit from the classic Skribbl.io theme.</p>
+                </div>
+                <input type="submit" value="Start Game" [disabled]="owner.uid != myUid || users.length < 2" (click)="startGame()">
+            </form>
+        </div>
+    </section>
+    <section class="players">
+        <h1>Players</h1>
+        <div>
+            <!-- container of players in the room -->
+            <ng-container *ngFor="let user of users">
+                <div [class.you]="user.uid == myUid">
+                    <app-avatar 
+                        [size]="94"
+                        [color]="user.avatar.color"
+                        [eyes]="user.avatar.eyes"
+                        [mouth]="user.avatar.mouth"
+                        [crown]="user.uid == owner.uid">
+                    </app-avatar>
+                    <!-- has crown when is leader -->
+                    <div>
+                        <p>{{ user.name }}</p>
+                        <p>You</p>
+                        <!-- second p only shows up if ur uid matches -->
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <section class="friends">
+        <h1>Invite your friends!</h1>
+        <div>
+            <div>
+                <input #urlEle type="url" readonly placeholder="url of meeting room" value="{{ url }}">
+                <p>Hover over me to see the invite link!</p>
+            </div>
+            <button (click)="copyUrl(urlEle)">Copy</button>
+        </div>
+    </section>
+</section>

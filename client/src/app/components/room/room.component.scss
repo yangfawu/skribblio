@@ -1,0 +1,215 @@
+@import "../../../variables.scss";
+
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    & > section {
+        width: calc(100% - 40px);
+        max-width: 898px;
+        min-width: 550px;
+        display: grid;
+        grid-template-columns: 1fr 416px;
+        grid-template-rows: repeat(2, auto);
+        grid-template-areas: "settings players"
+                             "friends friends";
+        gap: 8px;
+        & > section {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            justify-content: flex-start;
+            & > h1 {
+                font-size: 35px;
+                color: white;
+                margin: 0;
+                font-family: $open-sans;
+                font-weight: 400;
+            }
+            &.settings {
+                grid-area: settings;
+                & > div {
+                    border-radius: 2px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    background-color: white;
+                    color: #333;
+                    & > h1 {
+                        margin: 0;
+                        font-size: 28px;
+                        text-align: center;
+                        font-family: $open-sans;
+                        font-weight: normal;
+                        border-bottom: 1px solid #d3d3d3;
+                        padding: 1px;
+                    }
+                    & > form {
+                        padding: 8px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                        & > div {
+                            font-family: $open-sans;
+                            h2 {
+                                margin: 0;
+                                font-size: 14px;
+                                margin-bottom: 5px;
+                            }
+                            p {
+                                margin: 0;
+                                font-size: 14px;
+                                border: 1px solid #ccc;
+                                border-radius: 2px;
+                                padding: 8px;
+                                color: rgb(141, 141, 141);
+                            }
+                            select {
+                                box-sizing: border-box;
+                                width: 100%;
+                                font-family: $open-sans;
+                                display: block;
+                                padding: 6px 12px;
+                                font-size: 14px;
+                                outline: none;
+                                border: 1px solid #ccc;
+                                border-radius: 2px;
+                                &:focus {
+                                    border-color: #66afe9;
+                                    outline: 0;
+                                    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 
+                                        0 0 8px rgb(102 175 233 / 60%);
+                                }
+                            }
+                        }
+                        & > input[type = submit] {
+                            font-family: $open-sans;
+                            font-size: 16px;
+                            background-color: #5cb85c;
+                            color: white;
+                            padding: 6px 16px;
+                            border: none;
+                            outline: none;
+                            cursor: pointer;
+                            border-radius: 4px;
+                            &:hover {
+                                background-color: #449d44;
+                            }
+                            &:disabled {
+                                background-color: #9bbe9b;
+                                cursor: auto;
+                                &:hover {
+                                    background-color: #9bbe9b;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            &.players {
+                grid-area: players;
+                & > div {
+                    display: flex;
+                    flex-flow: row wrap;
+                    box-sizing: border-box;
+                    width: 100%;
+                    gap: calc(28px / 3);
+                    align-items: center;
+                    justify-content: flex-start;
+                    & > div {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        opacity: 0.7;
+                        cursor: pointer;
+                        & > div {
+                            font-family: $open-sans;
+                            & > p {
+                                margin: 0;
+                                text-align: center;
+                                color: white;
+                                word-wrap: break-word;
+                                font-weight: 700;
+                                font-size: 12px;
+                                &:last-of-type {
+                                    color: #87cefa;
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+                        &:hover {
+                            opacity: 1;
+                        }
+                        &.you > div > p:last-of-type {
+                            visibility: visible;
+                        }
+                    }
+                }
+            }
+            &.friends {
+                grid-area: friends;
+                & > div {
+                    display: grid;
+                    grid-template-columns: 1fr min-content;
+                    width: 100%;
+                    border-radius: 2px;
+                    align-items: stretch;
+                    & > div {
+                        position: relative;
+                        border-radius: 2px 0 0 2px;
+                        * {
+                            width: 100%;
+                        }
+                        input {
+                            text-align: center;
+                            font-family: $open-sans;
+                            box-sizing: border-box;
+                            height: 100%;
+                            outline: none;
+                            border: none;
+                            font-size: 18px;
+                            border-radius: 2px 0 0 2px;
+                            &:hover ~ p {
+                                display: none;
+                            }
+                        }
+                        p {
+                            font-family: $open-sans;
+                            position: absolute;
+                            margin: 0;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: white;
+                            color: #e27220;
+                            font-size: 18px;
+                            border-radius: 2px 0 0 2px;
+                            &:hover {
+                                display: none;
+                            }
+                        }
+                    }
+                    & > button {
+                        padding: 6px 12px;
+                        font-size: 14px;
+                        font-family: $open-sans;
+                        outline: none;
+                        border: none;
+                        color: white;
+                        background-color: #f0ad4e;
+                        cursor: pointer;
+                        border-radius: 0 2px 2px 0;
+                        &:hover {
+                            background-color: #ec971f;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

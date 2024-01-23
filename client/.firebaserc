@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pogchamp-e27a7": {
+      "hosting": {
+        "yw-skribbl-io": [
+          "pogchamp-e27a7"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<section>
+    <section>
+        <div>
+            <input #name autocomplete="off" type="text" name="name" placeholder="Enter your name" value="{{ avatarName }}" (change)="saveName()">
+        </div>
+        <div>
+            <div>
+                <div>
+                    <div (click)="main.back('color')"></div>
+                    <div (click)="main.back('eyes')"></div>
+                    <div (click)="main.back('mouth')"></div>
+                </div>
+                <app-avatar #main [isMain]="true" [size]="96"></app-avatar>
+                <div>
+                    <div (click)="main.next('color')"></div>
+                    <div (click)="main.next('eyes')"></div>
+                    <div (click)="main.next('mouth')"></div>
+                </div>
+            </div>
+            <div class="img" (click)="main.randomize()"></div>
+            <!-- <img src="../../../assets/tools/dice.gif" alt="Randomizer" (click)="main.randomize()"> -->
+        </div>
+        <div>
+            <div [class.disabled]="disabled" (click)="start()">Play!</div>
+            <div [class.disabled]="disabled" (click)="create()">Create Private Room</div>
+        </div>
+    </section>
+    <section>
+        <h1>Welcome!</h1>
+        <p>If you are here, then you probably already know what <b>skribbl.io</b> is and how to play it. This is Yangfa's replica of this online drawing game. I built everything but the images, sounds, and game design from scratch. If you are more curious about the technical stuff, this was made using Angular and the game itself is currently backed by a remote pseudo-server written in Java. I have no idea how the original developer made the game but the end result is pretty similar. Enjoy!</p>
+        <p>Please remember to support the original game and its creator!</p>
+        <nav>
+            <a href="https://skribbl.io/" target="_blank">OG Skribbl.io</a> |
+            <a href="https://twitter.com/ticedev" target="_blank">OG Creator (@ticedev)</a>
+        </nav>
+    </section>
+</section>
